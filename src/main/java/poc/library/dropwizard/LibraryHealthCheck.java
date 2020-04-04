@@ -1,4 +1,10 @@
 package poc.library.dropwizard;
 
-public class LibraryHealthCheck {
+import com.codahale.metrics.health.HealthCheck;
+
+public class LibraryHealthCheck extends HealthCheck {
+    @Override
+    protected Result check() throws Exception {
+        return Result.healthy();
+    }
 }
