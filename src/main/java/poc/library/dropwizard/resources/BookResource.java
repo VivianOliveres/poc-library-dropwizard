@@ -43,11 +43,11 @@ public class BookResource {
 
     @Timed
     @POST
-    public Response insertBook(@NotNull @Valid Book book) {
+    public Response insertBook(@NotNull Book book) {
         logger.info("insertBook({})", book);
         int result = bookDao.insert(book.getId().toString(), book.getTitle());
         if (result > 0) {
-            return Response.created(UriBuilder.fromResource(Book.class).build(book)).build();
+            return Response.created(UriBuilder.fromResource(BookResource.class).build(book.getId(), book.getTitle())).build();
         }
 
         return Response.status(Response.Status.BAD_REQUEST).build();
