@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+ext {
+    dropwizardVersion = '2.0.5'
+}
+
+dependencies {
+    implementation 'com.google.guava:guava:28.1-jre'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    implementation "io.dropwizard:dropwizard-core:$dropwizardVersion"
+    implementation "io.dropwizard:dropwizard-client:$dropwizardVersion"
+    implementation "io.dropwizard:dropwizard-auth:$dropwizardVersion"
+    implementation "io.dropwizard:dropwizard-jdbi3:$dropwizardVersion"
+    
+    testImplementation "io.dropwizard:dropwizard-testing:$dropwizardVersion"
+
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:3.3.3'
+    testImplementation 'org.assertj:assertj-core:3.15.0'
+}
+
+application {
+    mainClassName = 'poc.library.dropwizard.App'
+}
