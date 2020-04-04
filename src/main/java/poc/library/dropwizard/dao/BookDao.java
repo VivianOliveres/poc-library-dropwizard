@@ -1,13 +1,11 @@
 package poc.library.dropwizard.dao;
 
+import java.util.List;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import poc.library.dropwizard.domain.Book;
-
-import java.util.List;
-import java.util.UUID;
 
 public interface BookDao {
 

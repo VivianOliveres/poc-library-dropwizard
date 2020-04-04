@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'application'
+    id "com.diffplug.gradle.spotless" version "3.28.1"
 }
 
 sourceCompatibility = 1.11
@@ -39,4 +40,12 @@ dependencies {
 
 application {
     mainClassName = 'poc.library.dropwizard.App'
+}
+
+spotless {
+    java {
+        eclipse('4.13.0')
+        indentWithSpaces()
+        removeUnusedImports()
+    }
 }

@@ -1,16 +1,15 @@
 package poc.library.dropwizard.resources;
 
+import com.codahale.metrics.annotation.Timed;
+import java.util.List;
+import java.util.UUID;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.codahale.metrics.annotation.Timed;
 import poc.library.dropwizard.dao.BookDao;
 import poc.library.dropwizard.domain.Book;
-
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import java.util.List;
-import java.util.UUID;
 
 @Path("/book")
 @Produces(MediaType.APPLICATION_JSON)
