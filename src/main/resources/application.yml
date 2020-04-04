@@ -1,0 +1,10 @@
+# Logging settings.
+logging:
+  level: INFO
+
+database:
+  driverClass: com.mysql.jdbc.Driver
+  user: me
+  password: 123
+  url: jdbc:mysql://localhost:3306/library
+

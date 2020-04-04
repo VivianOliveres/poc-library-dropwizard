@@ -16,6 +16,8 @@ ext {
 }
 
 dependencies {
+    runtimeOnly 'mysql:mysql-connector-java:8.0.19'
+
     implementation 'com.google.guava:guava:28.1-jre'
 
     compileOnly 'org.projectlombok:lombok:1.18.12'
