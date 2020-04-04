@@ -11,6 +11,6 @@ public class BookMapper implements RowMapper<Book> {
 
     @Override
     public Book map(ResultSet rs, StatementContext ctx) throws SQLException {
-        return new Book(UUID.fromString(rs.getString(1)), rs.getString(2), rs.getString(3));
+        return new Book(UUID.fromString(rs.getString(1)), rs.getString(2));
     }
 }
