@@ -5,7 +5,9 @@ import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.jdbi.v3.core.Jdbi;
+import poc.library.dropwizard.dao.AdherentDao;
 import poc.library.dropwizard.dao.BookDao;
+import poc.library.dropwizard.resources.AdherentResource;
 import poc.library.dropwizard.resources.BookResource;
 
 public class App extends Application<LibraryConfiguration> {
@@ -33,7 +35,11 @@ public class App extends Application<LibraryConfiguration> {
         Jdbi jdbi = factory.build(environment, config.getDataSourceFactory(), "mysql");
 
         BookDao bookDao = jdbi.onDemand(BookDao.class);
-        BookResource resource = new BookResource(bookDao);
-        environment.jersey().register(resource);
+        BookResource bookResource = new BookResource(bookDao);
+        environment.jersey().register(bookResource);
+
+        AdherentDao adherentDao = jdbi.onDemand(AdherentDao.class);
+        AdherentResource adherentResource = new AdherentResource(adherentDao);
+        environment.jersey().register(adherentResource);
     }
 }

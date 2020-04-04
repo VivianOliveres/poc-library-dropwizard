@@ -1,14 +1,10 @@
 package poc.library.dropwizard.resources;
 
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
-import org.mockito.Mockito;
-import poc.library.dropwizard.App;
 import poc.library.dropwizard.dao.BookDao;
 import poc.library.dropwizard.domain.Book;
 
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,13 +33,13 @@ public class BookResourceTest {
 
     @Test
     public void should_getBooks_return_books_from_dao() {
-        // GIVEN: dao contains 2 books
+        // GIVEN: dao contains 2 items
         when(dao.findBooks()).thenReturn(List.of(SCALA, SPARK));
 
         // WHEN: getBooks
         List<Book> result = resource.getBooks();
 
-        // THEN: resource return no books
+        // THEN: resource returns 2 items
         assertThat(result).hasSize(2);
         assertThat(result).contains(SCALA, SPARK);
     }
@@ -87,7 +83,7 @@ public class BookResourceTest {
     @Test
     public void should_deleteBook_return_BadRequest_if_dao_has_failed_to_delete_a_book() {
         // GIVEN: dao fails to delete 1 book
-        when(dao.insert(eq(DESIGN_PATERNS.getId().toString()), eq(DESIGN_PATERNS.getTitle()))).thenReturn(0);
+        when(dao.deleteBookById(eq(DESIGN_PATERNS.getId().toString()))).thenReturn(0);
 
         // WHEN: deleteBook
         Response response = resource.deleteBook(DESIGN_PATERNS.getId());
