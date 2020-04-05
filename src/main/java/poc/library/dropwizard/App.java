@@ -9,6 +9,9 @@ import poc.library.dropwizard.adherent.db.AdherentDao;
 import poc.library.dropwizard.book.db.BookDao;
 import poc.library.dropwizard.adherent.AdherentResource;
 import poc.library.dropwizard.book.BookResource;
+import poc.library.dropwizard.booking.BookingResource;
+import poc.library.dropwizard.booking.BookingService;
+import poc.library.dropwizard.booking.db.BookingDao;
 
 public class App extends Application<LibraryConfiguration> {
 
@@ -41,5 +44,10 @@ public class App extends Application<LibraryConfiguration> {
         AdherentDao adherentDao = jdbi.onDemand(AdherentDao.class);
         AdherentResource adherentResource = new AdherentResource(adherentDao);
         environment.jersey().register(adherentResource);
+
+        BookingDao bookingDao = jdbi.onDemand(BookingDao.class);
+        BookingService bookingService = new BookingService(bookingDao);
+        BookingResource bookingResource = new BookingResource(bookingService);
+        environment.jersey().register(bookingResource);
     }
 }

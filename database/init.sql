@@ -30,9 +30,12 @@ CREATE TABLE IF NOT EXISTS bookings (
     user_id BIGINT NOT NULL,
     book_id VARCHAR(36) NOT NULL,
     booking_date DATE NOT NULL,
+    returned_date DATE,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES adherent(user_id),
     CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES book(book_id)
 );
 
 insert into bookings (user_id, book_id, booking_date) values (1, 'c6708e32-89ba-4418-b70f-9f7e359e822b', '2020-04-03');
+insert into bookings (user_id, book_id, booking_date) values (1, 'ee1b0b0d-256f-45d9-b018-ced809656c06', '2020-04-03');
 insert into bookings (user_id, book_id, booking_date) values (2, 'd244089b-cdcf-49be-a792-6f040d2b6713', '2020-03-27');
+insert into bookings (user_id, book_id, booking_date, returned_date) values (3, 'd244089b-cdcf-49be-a792-6f040d2b6713', '2020-03-27', '2020-03-30');
