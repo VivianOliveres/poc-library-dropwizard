@@ -1,4 +1,4 @@
-package poc.library.dropwizard.resources;
+package poc.library.dropwizard.book;
 
 import lombok.experimental.UtilityClass;
 import poc.library.dropwizard.domain.Book;

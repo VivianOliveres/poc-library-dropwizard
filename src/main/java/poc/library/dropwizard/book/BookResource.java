@@ -1,10 +1,10 @@
-package poc.library.dropwizard.resources;
+package poc.library.dropwizard.book;
 
 import com.codahale.metrics.annotation.Timed;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.dao.BookDao;
+import poc.library.dropwizard.book.db.BookDao;
 import poc.library.dropwizard.domain.Book;
 
 import javax.validation.constraints.NotNull;

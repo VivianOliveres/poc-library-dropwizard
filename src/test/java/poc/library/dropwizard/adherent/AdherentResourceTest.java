@@ -1,7 +1,7 @@
-package poc.library.dropwizard.resources;
+package poc.library.dropwizard.adherent;
 
 import org.junit.Test;
-import poc.library.dropwizard.dao.AdherentDao;
+import poc.library.dropwizard.adherent.db.AdherentDao;
 import poc.library.dropwizard.domain.Adherent;
 
 import javax.ws.rs.core.Response;
@@ -11,8 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static poc.library.dropwizard.resources.AdherentMotherObject.*;
-import static poc.library.dropwizard.resources.BookMotherObject.*;
+import static poc.library.dropwizard.adherent.AdherentMotherObject.*;
 
 public class AdherentResourceTest {
 

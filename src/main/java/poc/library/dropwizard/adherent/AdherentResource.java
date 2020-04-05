@@ -1,10 +1,10 @@
-package poc.library.dropwizard.resources;
+package poc.library.dropwizard.adherent;
 
 import com.codahale.metrics.annotation.Timed;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.dao.AdherentDao;
+import poc.library.dropwizard.adherent.db.AdherentDao;
 import poc.library.dropwizard.domain.Adherent;
 
 import javax.validation.constraints.NotNull;

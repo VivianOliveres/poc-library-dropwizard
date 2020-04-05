@@ -5,10 +5,10 @@ import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.jdbi.v3.core.Jdbi;
-import poc.library.dropwizard.dao.AdherentDao;
-import poc.library.dropwizard.dao.BookDao;
-import poc.library.dropwizard.resources.AdherentResource;
-import poc.library.dropwizard.resources.BookResource;
+import poc.library.dropwizard.adherent.db.AdherentDao;
+import poc.library.dropwizard.book.db.BookDao;
+import poc.library.dropwizard.adherent.AdherentResource;
+import poc.library.dropwizard.book.BookResource;
 
 public class App extends Application<LibraryConfiguration> {
 

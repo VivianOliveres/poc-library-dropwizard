@@ -1,4 +1,4 @@
-package poc.library.dropwizard.dao;
+package poc.library.dropwizard.book.db;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

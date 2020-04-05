@@ -1,4 +1,4 @@
-package poc.library.dropwizard.dao;
+package poc.library.dropwizard.book.db;
 
 import java.util.List;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;

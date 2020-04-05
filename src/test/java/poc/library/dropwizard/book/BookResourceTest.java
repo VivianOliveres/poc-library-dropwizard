@@ -1,7 +1,7 @@
-package poc.library.dropwizard.resources;
+package poc.library.dropwizard.book;
 
 import org.junit.Test;
-import poc.library.dropwizard.dao.BookDao;
+import poc.library.dropwizard.book.db.BookDao;
 import poc.library.dropwizard.domain.Book;
 
 import javax.ws.rs.core.Response;
@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static poc.library.dropwizard.resources.BookMotherObject.*;
+import static poc.library.dropwizard.book.BookMotherObject.*;
 
 public class BookResourceTest {
 

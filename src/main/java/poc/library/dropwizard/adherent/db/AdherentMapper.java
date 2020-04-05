@@ -1,4 +1,4 @@
-package poc.library.dropwizard.dao;
+package poc.library.dropwizard.adherent.db;
 
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
