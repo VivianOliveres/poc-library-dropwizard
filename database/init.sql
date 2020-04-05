@@ -25,3 +25,14 @@ insert into adherent (first_name, family_name, birth_date, membership_date) valu
 insert into adherent (first_name, family_name, birth_date, membership_date) values ('Erich', 'Gamma', '1961-03-13', '1980-08-26');
 insert into adherent (first_name, family_name, birth_date, membership_date) values ('James', 'Gosling', '1955-05-19', '1978-02-20');
 insert into adherent (first_name, family_name, birth_date, membership_date) values ('Margaret', 'Heafield', '1936-08-17', '1955-07-25');
+
+CREATE TABLE IF NOT EXISTS bookings (
+    user_id BIGINT NOT NULL,
+    book_id VARCHAR(36) NOT NULL,
+    booking_date DATE NOT NULL,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES adherent(user_id),
+    CONSTRAINT fk_book_id FOREIGN KEY (book_id) REFERENCES book(book_id)
+);
+
+insert into bookings (user_id, book_id, booking_date) values (1, 'c6708e32-89ba-4418-b70f-9f7e359e822b', '2020-04-03');
+insert into bookings (user_id, book_id, booking_date) values (2, 'd244089b-cdcf-49be-a792-6f040d2b6713', '2020-03-27');
