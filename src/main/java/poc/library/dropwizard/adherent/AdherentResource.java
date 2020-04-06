@@ -1,19 +1,16 @@
 package poc.library.dropwizard.adherent;
 
 import com.codahale.metrics.annotation.Timed;
+import java.util.List;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.adherent.db.AdherentDao;
 import poc.library.dropwizard.domain.Adherent;
-
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import java.net.URI;
-import java.util.List;
 
 @Path("/adherent")
 @Produces(MediaType.APPLICATION_JSON)
@@ -43,7 +40,8 @@ public class AdherentResource {
     @Timed
     @DELETE
     @Path("/{firstName}/{familyName}")
-    public Response deleteAdherent(@PathParam("firstName") @NotNull String firstName,
+    public Response deleteAdherent(
+            @PathParam("firstName") @NotNull String firstName,
             @PathParam("familyName") @NotNull String familyName) {
         int count = dao.deleteAdherentByNames(firstName, familyName);
         if (count > 0) {
@@ -57,12 +55,14 @@ public class AdherentResource {
     @POST
     public Response insertAdherent(@NotNull Adherent adherent) {
         logger.info("insertAdherent({})", adherent);
-        long result = dao.insert(adherent.getFirstName(), adherent.getFamilyName(), adherent.getBirthDate(),
-                adherent.getMembershipDate());
+        long result =
+                dao.insert(
+                        adherent.getFirstName(),
+                        adherent.getFamilyName(),
+                        adherent.getBirthDate(),
+                        adherent.getMembershipDate());
         if (result > 0) {
-            URI uri = UriBuilder.fromResource(AdherentResource.class).build(result, adherent.getFirstName(),
-                    adherent.getFamilyName(), adherent.getBirthDate(), adherent.getMembershipDate());
-            return Response.created(uri).build();
+            return Response.status(Response.Status.CREATED).entity(adherent).build();
         }
 
         return Response.status(Response.Status.BAD_REQUEST).build();
@@ -88,7 +88,8 @@ public class AdherentResource {
     @GET
     @Path("/{firstName}/{familyName}")
     @RegisterBeanMapper(Adherent.class)
-    public Adherent getAdherentByNames(@PathParam("firstName") @NotNull String firstName,
+    public Adherent getAdherentByNames(
+            @PathParam("firstName") @NotNull String firstName,
             @PathParam("familyName") @NotNull String familyName) {
         logger.info("getAdherentByNames({}, {})", firstName, familyName);
         return dao.findAdherentByNames(firstName, familyName);

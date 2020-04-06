@@ -8,9 +8,7 @@ import javax.validation.constraints.NotNull;
 
 public class LibraryConfiguration extends Configuration {
 
-    @Valid
-    @NotNull
-    private DataSourceFactory database = new DataSourceFactory();
+    @Valid @NotNull private DataSourceFactory database = new DataSourceFactory();
 
     @JsonProperty("database")
     public void setDataSourceFactory(DataSourceFactory factory) {

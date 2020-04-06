@@ -1,17 +1,16 @@
 package poc.library.dropwizard.adherent;
 
-import org.junit.Test;
-import poc.library.dropwizard.adherent.db.AdherentDao;
-import poc.library.dropwizard.domain.Adherent;
-
-import javax.ws.rs.core.Response;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static poc.library.dropwizard.adherent.AdherentMotherObject.*;
+
+import java.util.List;
+import javax.ws.rs.core.Response;
+import org.junit.Test;
+import poc.library.dropwizard.adherent.db.AdherentDao;
+import poc.library.dropwizard.domain.Adherent;
 
 public class AdherentResourceTest {
 
@@ -47,8 +46,12 @@ public class AdherentResourceTest {
     @Test
     public void should_insertAdherent_return_ok_if_dao_has_successfully_inserted_item() {
         // GIVEN: dao insert 1 item
-        when(dao.insert(eq(ERICH.getFirstName()), eq(ERICH.getFamilyName()), eq(ERICH.getBirthDate()),
-                eq(ERICH.getMembershipDate()))).thenReturn(1L);
+        when(dao.insert(
+                        eq(ERICH.getFirstName()),
+                        eq(ERICH.getFamilyName()),
+                        eq(ERICH.getBirthDate()),
+                        eq(ERICH.getMembershipDate())))
+                .thenReturn(1L);
 
         // WHEN: insertAdherent
         Response response = resource.insertAdherent(ERICH);
@@ -60,8 +63,12 @@ public class AdherentResourceTest {
     @Test
     public void should_insertAdherent_return_BadRequest_if_dao_has_failed_to_insert_item() {
         // GIVEN: dao fails to insert 1 book
-        when(dao.insert(eq(ERICH.getFirstName()), eq(ERICH.getFamilyName()), eq(ERICH.getBirthDate()),
-                eq(ERICH.getMembershipDate()))).thenReturn(0L);
+        when(dao.insert(
+                        eq(ERICH.getFirstName()),
+                        eq(ERICH.getFamilyName()),
+                        eq(ERICH.getBirthDate()),
+                        eq(ERICH.getMembershipDate())))
+                .thenReturn(0L);
 
         // WHEN: insertAdherent
         Response response = resource.insertAdherent(ERICH);
@@ -97,7 +104,8 @@ public class AdherentResourceTest {
     @Test
     public void should_deleteAdherentByNames_return_ok_if_dao_has_successfully_deleted_item() {
         // GIVEN: dao delete 1 item
-        when(dao.deleteAdherentByNames(eq(ERICH.getFirstName()), eq(ERICH.getFamilyName()))).thenReturn(1);
+        when(dao.deleteAdherentByNames(eq(ERICH.getFirstName()), eq(ERICH.getFamilyName())))
+                .thenReturn(1);
 
         // WHEN: deleteAdherent
         Response response = resource.deleteAdherent(ERICH.getFirstName(), ERICH.getFamilyName());
@@ -109,7 +117,8 @@ public class AdherentResourceTest {
     @Test
     public void should_deleteAdherentByNames_return_BadRequest_if_dao_has_failed_to_delete_item() {
         // GIVEN: dao fails to delete 1 item
-        when(dao.deleteAdherentByNames(eq(ERICH.getFirstName()), eq(ERICH.getFamilyName()))).thenReturn(0);
+        when(dao.deleteAdherentByNames(eq(ERICH.getFirstName()), eq(ERICH.getFamilyName())))
+                .thenReturn(0);
 
         // WHEN: deleteAdherent
         Response response = resource.deleteAdherent(ERICH.getFirstName(), ERICH.getFamilyName());
@@ -145,10 +154,12 @@ public class AdherentResourceTest {
     @Test
     public void should_getAdherentByNames_return_ok_if_dao_findAdherentByNames() {
         // GIVEN: dao return 1 item
-        when(dao.findAdherentByNames(eq(MARGARET.getFirstName()), eq(MARGARET.getFamilyName()))).thenReturn(MARGARET);
+        when(dao.findAdherentByNames(eq(MARGARET.getFirstName()), eq(MARGARET.getFamilyName())))
+                .thenReturn(MARGARET);
 
         // WHEN: getAdherentByNames
-        Adherent result = resource.getAdherentByNames(MARGARET.getFirstName(), MARGARET.getFamilyName());
+        Adherent result =
+                resource.getAdherentByNames(MARGARET.getFirstName(), MARGARET.getFamilyName());
 
         // THEN: result is MARGARET
         assertThat(result).isEqualTo(MARGARET);
@@ -157,13 +168,14 @@ public class AdherentResourceTest {
     @Test
     public void should_getAdherentByNames_return_null_if_dao_findAdherentByNames_return_null() {
         // GIVEN: dao fails to delete 1 item
-        when(dao.findAdherentByNames(eq(MARGARET.getFirstName()), eq(MARGARET.getFamilyName()))).thenReturn(null);
+        when(dao.findAdherentByNames(eq(MARGARET.getFirstName()), eq(MARGARET.getFamilyName())))
+                .thenReturn(null);
 
         // WHEN: getAdherentByNames
-        Adherent result = resource.getAdherentByNames(MARGARET.getFirstName(), MARGARET.getFamilyName());
+        Adherent result =
+                resource.getAdherentByNames(MARGARET.getFirstName(), MARGARET.getFamilyName());
 
         // THEN: result is null
         assertThat(result).isNull();
     }
-
 }

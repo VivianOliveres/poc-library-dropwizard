@@ -1,5 +1,8 @@
 package poc.library.dropwizard.booking;
 
+import java.time.LocalDate;
+import java.util.Optional;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.booking.db.BookingDao;
@@ -7,10 +10,6 @@ import poc.library.dropwizard.booking.exceptions.FailedInsertingBookingException
 import poc.library.dropwizard.booking.exceptions.TooManyBookingsException;
 import poc.library.dropwizard.booking.model.UserWithBooking;
 import poc.library.dropwizard.booking.model.UserWithBookings;
-
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.UUID;
 
 public class BookingService {
 

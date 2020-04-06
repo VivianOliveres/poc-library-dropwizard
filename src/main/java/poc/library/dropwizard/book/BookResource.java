@@ -1,19 +1,17 @@
 package poc.library.dropwizard.book;
 
 import com.codahale.metrics.annotation.Timed;
+import java.util.List;
+import java.util.UUID;
+import javax.validation.constraints.NotNull;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.book.db.BookDao;
 import poc.library.dropwizard.domain.Book;
-
-import javax.validation.constraints.NotNull;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
-import java.util.List;
-import java.util.UUID;
 
 @Path("/book")
 @Produces(MediaType.APPLICATION_JSON)
@@ -46,8 +44,7 @@ public class BookResource {
         logger.info("insertBook({})", book);
         int result = dao.insert(book.getId().toString(), book.getTitle());
         if (result > 0) {
-            return Response.created(UriBuilder.fromResource(BookResource.class).build(book.getId(), book.getTitle()))
-                    .build();
+            return Response.status(Response.Status.CREATED).entity(book).build();
         }
 
         return Response.status(Response.Status.BAD_REQUEST).build();

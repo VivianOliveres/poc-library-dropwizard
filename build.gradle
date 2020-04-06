@@ -44,7 +44,7 @@ application {
 
 spotless {
     java {
-        eclipse('4.13.0')
+        googleJavaFormat().aosp()
         indentWithSpaces()
         removeUnusedImports()
     }

@@ -1,15 +1,10 @@
 package poc.library.dropwizard.booking.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.List;
+import lombok.Value;
 import poc.library.dropwizard.domain.Adherent;
 
-import java.util.List;
-
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Value
 public class UserWithBookings {
 
     Adherent adherent;

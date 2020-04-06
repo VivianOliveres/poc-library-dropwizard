@@ -1,17 +1,16 @@
 package poc.library.dropwizard.book;
 
-import org.junit.Test;
-import poc.library.dropwizard.book.db.BookDao;
-import poc.library.dropwizard.domain.Book;
-
-import javax.ws.rs.core.Response;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static poc.library.dropwizard.book.BookMotherObject.*;
+
+import java.util.List;
+import javax.ws.rs.core.Response;
+import org.junit.Test;
+import poc.library.dropwizard.book.db.BookDao;
+import poc.library.dropwizard.domain.Book;
 
 public class BookResourceTest {
 
@@ -47,7 +46,8 @@ public class BookResourceTest {
     @Test
     public void should_insertBook_return_ok_if_dao_has_successfully_inserted_book() {
         // GIVEN: dao insert 1 book
-        when(dao.insert(eq(CONCURRENCY.getId().toString()), eq(CONCURRENCY.getTitle()))).thenReturn(1);
+        when(dao.insert(eq(CONCURRENCY.getId().toString()), eq(CONCURRENCY.getTitle())))
+                .thenReturn(1);
 
         // WHEN: insertBook
         Response response = resource.insertBook(CONCURRENCY);
@@ -59,7 +59,8 @@ public class BookResourceTest {
     @Test
     public void should_insertBook_return_BadRequest_if_dao_has_failed_to_insert_book() {
         // GIVEN: dao fails to insert 1 book
-        when(dao.insert(eq(CONCURRENCY.getId().toString()), eq(CONCURRENCY.getTitle()))).thenReturn(0);
+        when(dao.insert(eq(CONCURRENCY.getId().toString()), eq(CONCURRENCY.getTitle())))
+                .thenReturn(0);
 
         // WHEN: insertBook
         Response response = resource.insertBook(CONCURRENCY);
@@ -115,5 +116,4 @@ public class BookResourceTest {
         // THEN: result is null
         assertThat(result).isNull();
     }
-
 }

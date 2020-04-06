@@ -9,17 +9,17 @@ import poc.library.dropwizard.domain.Book;
 
 public interface BookDao {
 
-    @SqlUpdate("insert into book (book_id, title) values (:bookId, :title)")
+    @SqlUpdate("INSERT INTO book (book_id, title) VALUES (?, ?)")
     int insert(@Bind("bookId") String bookId, @Bind("title") String title);
 
-    @SqlQuery("select book_id, title from book where book_id = :bookId")
+    @SqlQuery("SELECT book_id, title FROM book WHERE book_id = ?")
     @RegisterRowMapper(BookMapper.class)
-    Book findBookById(@Bind("bookId") String bookId);
+    Book findBookById(String bookId);
 
-    @SqlQuery("select book_id, title from book")
+    @SqlQuery("SELECT book_id, title FROM book")
     @RegisterRowMapper(BookMapper.class)
     List<Book> findBooks();
 
-    @SqlUpdate("delete from book where book_id = :bookId")
-    int deleteBookById(@Bind("bookId") String bookId);
+    @SqlUpdate("DELETE FROM book WHERE book_id = ?")
+    int deleteBookById(String bookId);
 }

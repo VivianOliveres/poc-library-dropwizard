@@ -13,6 +13,10 @@ public class FailedInsertingBookingException extends RuntimeException {
     }
 
     private static String createMessage(long userId, UUID bookId) {
-        return "Failed to insert a booking from adherent [" + userId + "] for book [" + bookId + "]";
+        return "Failed to insert a booking from adherent ["
+                + userId
+                + "] for book ["
+                + bookId
+                + "]";
     }
 }
