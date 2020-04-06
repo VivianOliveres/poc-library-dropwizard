@@ -15,9 +15,9 @@ import poc.library.dropwizard.booking.model.Booking;
 import poc.library.dropwizard.booking.model.UserWithBooking;
 import poc.library.dropwizard.booking.model.UserWithBookings;
 
-public interface BookingDao {
+public interface BookingRepo {
 
-    Logger logger = LoggerFactory.getLogger(BookingDao.class);
+    Logger logger = LoggerFactory.getLogger(BookingRepo.class);
 
     @SqlQuery(
             "SELECT "

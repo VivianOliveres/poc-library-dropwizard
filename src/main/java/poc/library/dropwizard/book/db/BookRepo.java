@@ -7,7 +7,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import poc.library.dropwizard.domain.Book;
 
-public interface BookDao {
+public interface BookRepo {
 
     @SqlUpdate("INSERT INTO book (book_id, title) VALUES (?, ?)")
     int insert(@Bind("bookId") String bookId, @Bind("title") String title);

@@ -10,7 +10,7 @@ import javax.ws.rs.core.Response;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.book.db.BookDao;
+import poc.library.dropwizard.book.db.BookRepo;
 import poc.library.dropwizard.domain.Book;
 
 @Path("/book")
@@ -20,9 +20,9 @@ public class BookResource {
 
     private static final Logger logger = LoggerFactory.getLogger(BookResource.class);
 
-    private final BookDao dao;
+    private final BookRepo dao;
 
-    public BookResource(BookDao dao) {
+    public BookResource(BookRepo dao) {
         this.dao = dao;
     }
 

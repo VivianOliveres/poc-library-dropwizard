@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.booking.db.BookingDao;
+import poc.library.dropwizard.booking.db.BookingRepo;
 import poc.library.dropwizard.booking.exceptions.FailedInsertingBookingException;
 import poc.library.dropwizard.booking.exceptions.TooManyBookingsException;
 import poc.library.dropwizard.booking.model.UserWithBooking;
@@ -17,9 +17,9 @@ public class BookingService {
 
     private static final Logger logger = LoggerFactory.getLogger(BookingService.class);
 
-    private final BookingDao dao;
+    private final BookingRepo dao;
 
-    public BookingService(BookingDao dao) {
+    public BookingService(BookingRepo dao) {
         this.dao = dao;
     }
 

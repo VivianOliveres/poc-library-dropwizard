@@ -9,7 +9,7 @@ import javax.ws.rs.core.Response;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.adherent.db.AdherentDao;
+import poc.library.dropwizard.adherent.db.AdherentRepo;
 import poc.library.dropwizard.domain.Adherent;
 
 @Path("/adherent")
@@ -19,9 +19,9 @@ public class AdherentResource {
 
     private static final Logger logger = LoggerFactory.getLogger(AdherentResource.class);
 
-    private final AdherentDao dao;
+    private final AdherentRepo dao;
 
-    public AdherentResource(AdherentDao dao) {
+    public AdherentResource(AdherentRepo dao) {
         this.dao = dao;
     }
 

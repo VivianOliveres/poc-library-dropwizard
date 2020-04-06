@@ -8,7 +8,7 @@ import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 import poc.library.dropwizard.domain.Adherent;
 
-public interface AdherentDao {
+public interface AdherentRepo {
 
     @GetGeneratedKeys
     @SqlUpdate(

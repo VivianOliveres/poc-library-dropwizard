@@ -9,12 +9,12 @@ import static poc.library.dropwizard.adherent.AdherentMotherObject.*;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import org.junit.Test;
-import poc.library.dropwizard.adherent.db.AdherentDao;
+import poc.library.dropwizard.adherent.db.AdherentRepo;
 import poc.library.dropwizard.domain.Adherent;
 
 public class AdherentResourceTest {
 
-    private AdherentDao dao = mock(AdherentDao.class);
+    private AdherentRepo dao = mock(AdherentRepo.class);
 
     private AdherentResource resource = new AdherentResource(dao);
 

@@ -9,12 +9,12 @@ import static poc.library.dropwizard.book.BookMotherObject.*;
 import java.util.List;
 import javax.ws.rs.core.Response;
 import org.junit.Test;
-import poc.library.dropwizard.book.db.BookDao;
+import poc.library.dropwizard.book.db.BookRepo;
 import poc.library.dropwizard.domain.Book;
 
 public class BookResourceTest {
 
-    private BookDao dao = mock(BookDao.class);
+    private BookRepo dao = mock(BookRepo.class);
 
     private BookResource resource = new BookResource(dao);
 

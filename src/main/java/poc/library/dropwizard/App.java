@@ -6,12 +6,12 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.jdbi.v3.core.Jdbi;
 import poc.library.dropwizard.adherent.AdherentResource;
-import poc.library.dropwizard.adherent.db.AdherentDao;
+import poc.library.dropwizard.adherent.db.AdherentRepo;
 import poc.library.dropwizard.book.BookResource;
-import poc.library.dropwizard.book.db.BookDao;
+import poc.library.dropwizard.book.db.BookRepo;
 import poc.library.dropwizard.booking.BookingResource;
 import poc.library.dropwizard.booking.BookingService;
-import poc.library.dropwizard.booking.db.BookingDao;
+import poc.library.dropwizard.booking.db.BookingRepo;
 
 public class App extends Application<LibraryConfiguration> {
 
@@ -37,16 +37,16 @@ public class App extends Application<LibraryConfiguration> {
         JdbiFactory factory = new JdbiFactory();
         Jdbi jdbi = factory.build(environment, config.getDataSourceFactory(), "mysql");
 
-        BookDao bookDao = jdbi.onDemand(BookDao.class);
-        BookResource bookResource = new BookResource(bookDao);
+        BookRepo bookRepo = jdbi.onDemand(BookRepo.class);
+        BookResource bookResource = new BookResource(bookRepo);
         environment.jersey().register(bookResource);
 
-        AdherentDao adherentDao = jdbi.onDemand(AdherentDao.class);
-        AdherentResource adherentResource = new AdherentResource(adherentDao);
+        AdherentRepo adherentRepo = jdbi.onDemand(AdherentRepo.class);
+        AdherentResource adherentResource = new AdherentResource(adherentRepo);
         environment.jersey().register(adherentResource);
 
-        BookingDao bookingDao = jdbi.onDemand(BookingDao.class);
-        BookingService bookingService = new BookingService(bookingDao);
+        BookingRepo bookingRepo = jdbi.onDemand(BookingRepo.class);
+        BookingService bookingService = new BookingService(bookingRepo);
         BookingResource bookingResource = new BookingResource(bookingService);
         environment.jersey().register(bookingResource);
     }

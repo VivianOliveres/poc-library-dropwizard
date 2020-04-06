@@ -1,6 +1,5 @@
 package poc.library.dropwizard.booking.model;
 
-import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Optional;
 import lombok.Value;
