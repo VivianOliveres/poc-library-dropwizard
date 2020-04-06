@@ -70,30 +70,6 @@ public class BookResourceTest {
     }
 
     @Test
-    public void should_deleteBook_return_ok_if_dao_has_successfully_deleted_a_book() {
-        // GIVEN: dao delete 1 book
-        when(dao.deleteBookById(eq(DESIGN_PATERNS.getId().toString()))).thenReturn(1);
-
-        // WHEN: deleteBook
-        Response response = resource.deleteBook(DESIGN_PATERNS.getId());
-
-        // THEN: response is ok
-        assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
-    }
-
-    @Test
-    public void should_deleteBook_return_BadRequest_if_dao_has_failed_to_delete_a_book() {
-        // GIVEN: dao fails to delete 1 book
-        when(dao.deleteBookById(eq(DESIGN_PATERNS.getId().toString()))).thenReturn(0);
-
-        // WHEN: deleteBook
-        Response response = resource.deleteBook(DESIGN_PATERNS.getId());
-
-        // THEN: response is BadRequest
-        assertThat(response.getStatus()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
-    }
-
-    @Test
     public void should_getBook_return_ok_if_dao_findBookById() {
         // GIVEN: dao return 1 book
         when(dao.findBookById(eq(DATA.getId().toString()))).thenReturn(DATA);

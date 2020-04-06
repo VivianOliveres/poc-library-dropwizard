@@ -27,18 +27,6 @@ public class BookResource {
     }
 
     @Timed
-    @DELETE
-    @Path("/{id}")
-    public Response deleteBook(@PathParam("id") @NotNull UUID id) {
-        int count = dao.deleteBookById(id.toString());
-        if (count > 0) {
-            return Response.ok(id).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST).build();
-    }
-
-    @Timed
     @POST
     public Response insertBook(@NotNull Book book) {
         logger.info("insertBook({})", book);
