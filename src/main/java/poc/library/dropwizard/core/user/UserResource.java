@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.core.user.db.UsersRepo;
 import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.utils.ResourceUtils;
+import poc.library.dropwizard.utils.Try;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -20,64 +22,54 @@ public class UserResource {
 
     private static final Logger logger = LoggerFactory.getLogger(UserResource.class);
 
-    private final UsersRepo dao;
+    private final UserService service;
 
-    public UserResource(UsersRepo dao) {
-        this.dao = dao;
+    public UserResource(UserService service) {
+        this.service = service;
     }
 
     @Timed
     @DELETE
     @Path("/{userId}")
     public Response deleteUser(@PathParam("userId") long userId) {
-        int count = dao.deleteUserById(userId);
-        if (count > 0) {
-            return Response.ok(userId).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        //TODO: delete user in others tables (bookings and ratings) ?
+        Try<User> result = service.deleteUser(userId);
+        return ResourceUtils.render(result);
     }
 
     @Timed
     @POST
     public Response insertUser(@NotNull User user) {
         logger.info("insertUser({})", user);
-        long result =
-                dao.insert(
-                        user.getFirstName(),
-                        user.getFamilyName(),
-                        user.getBirthDate(),
-                        user.getMembershipDate());
-        if (result > 0) {
-            return Response.status(Response.Status.CREATED).entity(user.withUserId(result)).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        Try<User> result = service.insertUser(user);
+        return ResourceUtils.render(result, Response.Status.CREATED);
     }
 
     @Timed
     @GET
-    public List<User> getUsers() {
+    public Response getUsers() {
         logger.info("getUsers");
-        return dao.findUsers();
+        Try<List<User>> result = service.getUsers();
+        return ResourceUtils.render(result);
     }
 
     @Timed
     @GET
     @Path("/{userId}")
-    @RegisterBeanMapper(User.class)
-    public User getUserById(@PathParam("userId") long userId) {
+    public Response getUserById(@PathParam("userId") long userId) {
         logger.info("getUserById({})", userId);
-        return dao.findUserById(userId);
+        Try<User> result = service.getUserById(userId);
+        return ResourceUtils.render(result);
     }
 
     @Timed
     @GET
     @Path("/{firstName}/{familyName}")
     @RegisterBeanMapper(User.class)
-    public User getUserByName(@PathParam("firstName") @NotNull String firstName,
+    public Response getUserByName(@PathParam("firstName") @NotNull String firstName,
                               @PathParam("familyName") @NotNull String familyName) {
         logger.info("getUserByNames({}, {})", firstName, familyName);
-        return dao.findUserByNames(firstName, familyName);
+        Try<User> result = service.getUserByNames(firstName, familyName);
+        return ResourceUtils.render(result);
     }
 }
