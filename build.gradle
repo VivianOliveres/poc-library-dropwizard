@@ -1,7 +1,7 @@
 plugins {
+    id 'idea'
     id 'java'
     id 'application'
-    id "com.diffplug.gradle.spotless" version "3.28.1"
 }
 
 sourceCompatibility = 1.11
@@ -33,19 +33,11 @@ dependencies {
     
     testImplementation "io.dropwizard:dropwizard-testing:$dropwizardVersion"
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.6.2'
     testImplementation 'org.mockito:mockito-core:3.3.3'
     testImplementation 'org.assertj:assertj-core:3.15.0'
 }
 
 application {
     mainClassName = 'poc.library.dropwizard.App'
-}
-
-spotless {
-    java {
-        googleJavaFormat().aosp()
-        indentWithSpaces()
-        removeUnusedImports()
-    }
 }

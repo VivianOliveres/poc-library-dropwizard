@@ -5,13 +5,13 @@ import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import org.jdbi.v3.core.Jdbi;
-import poc.library.dropwizard.adherent.AdherentResource;
-import poc.library.dropwizard.adherent.db.AdherentRepo;
-import poc.library.dropwizard.book.BookResource;
-import poc.library.dropwizard.book.db.BookRepo;
-import poc.library.dropwizard.booking.BookingResource;
-import poc.library.dropwizard.booking.BookingService;
-import poc.library.dropwizard.booking.db.BookingRepo;
+import poc.library.dropwizard.core.booking.BookingResource;
+import poc.library.dropwizard.core.booking.BookingService;
+import poc.library.dropwizard.core.booking.db.BookingsRepo;
+import poc.library.dropwizard.core.catalog.BookResource;
+import poc.library.dropwizard.core.catalog.db.BooksRepo;
+import poc.library.dropwizard.core.user.UserResource;
+import poc.library.dropwizard.core.user.db.UsersRepo;
 
 public class App extends Application<LibraryConfiguration> {
 
@@ -37,16 +37,16 @@ public class App extends Application<LibraryConfiguration> {
         JdbiFactory factory = new JdbiFactory();
         Jdbi jdbi = factory.build(environment, config.getDataSourceFactory(), "mysql");
 
-        BookRepo bookRepo = jdbi.onDemand(BookRepo.class);
-        BookResource bookResource = new BookResource(bookRepo);
+        BooksRepo booksRepo = jdbi.onDemand(BooksRepo.class);
+        BookResource bookResource = new BookResource(booksRepo);
         environment.jersey().register(bookResource);
 
-        AdherentRepo adherentRepo = jdbi.onDemand(AdherentRepo.class);
-        AdherentResource adherentResource = new AdherentResource(adherentRepo);
-        environment.jersey().register(adherentResource);
+        UsersRepo usersRepo = jdbi.onDemand(UsersRepo.class);
+        UserResource userResource = new UserResource(usersRepo);
+        environment.jersey().register(userResource);
 
-        BookingRepo bookingRepo = jdbi.onDemand(BookingRepo.class);
-        BookingService bookingService = new BookingService(bookingRepo);
+        BookingsRepo bookingsRepo = jdbi.onDemand(BookingsRepo.class);
+        BookingService bookingService = new BookingService(bookingsRepo);
         BookingResource bookingResource = new BookingResource(bookingService);
         environment.jersey().register(bookingResource);
     }

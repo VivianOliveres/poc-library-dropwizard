@@ -2,9 +2,10 @@ package poc.library.dropwizard.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Value;
+
+import java.util.UUID;
 
 @Value
 @AllArgsConstructor
