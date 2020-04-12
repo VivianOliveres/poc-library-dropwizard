@@ -7,11 +7,15 @@ import javax.ws.rs.core.Response;
 @UtilityClass
 public class ResourceUtils {
 
-    public static final <T> Response render(Try<T> result) {
+    public static <T> Response renderCreated(Try<T> result) {
+        return render(result, Response.Status.CREATED);
+    }
+
+    public static <T> Response renderOk(Try<T> result) {
         return render(result, Response.Status.OK);
     }
 
-    public static final <T> Response render(Try<T> result, Response.Status okStatus) {
+    public static <T> Response render(Try<T> result, Response.Status okStatus) {
         if (result.isLeft()) {
             return Response.status(okStatus).entity(result.getLeft()).build();
         }

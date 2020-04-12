@@ -31,7 +31,7 @@ public class RatingResource {
     public Response insertRating(@NotNull Rating rating) {
         logger.info("insertRating({})", rating);
         Try<Rating> result = service.rate(rating);
-        return ResourceUtils.render(result, Response.Status.CREATED);
+        return ResourceUtils.renderCreated(result);
     }
 
     @Timed
@@ -45,7 +45,7 @@ public class RatingResource {
     @Path("/{ratingId}")
     public Response getRating(@PathParam("ratingId") @NotNull long ratingId) {
         Try<Rating> result = service.getRating(ratingId);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 
     @Timed
@@ -53,7 +53,7 @@ public class RatingResource {
     public Response updateRating(@NotNull Rating rating) {
         logger.info("updateRating({})", rating);
         Try<Rating> result = service.updateRating(rating);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 
     @Timed
@@ -61,7 +61,7 @@ public class RatingResource {
     @Path("/{ratingId}")
     public Response deleteRating(@PathParam("ratingId") long ratingId) {
         Try<Rating> result = service.deleteRating(ratingId);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 
 }

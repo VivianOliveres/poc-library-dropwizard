@@ -1,10 +1,8 @@
 package poc.library.dropwizard.core.catalog;
 
 import com.codahale.metrics.annotation.Timed;
-import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.core.catalog.db.BooksRepo;
 import poc.library.dropwizard.domain.Book;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
@@ -34,7 +32,7 @@ public class BookResource {
     public Response insertBook(@NotNull Book book) {
         logger.info("insertBook({})", book);
         Try<Book> result = service.insertBook(book);
-        return ResourceUtils.render(result, Response.Status.CREATED);
+        return ResourceUtils.renderCreated(result);
     }
 
     @Timed
@@ -48,6 +46,6 @@ public class BookResource {
     @Path("/{id}")
     public Response getBook(@PathParam("id") @NotNull UUID id) {
         Try<Book> result = service.getBook(id);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 }

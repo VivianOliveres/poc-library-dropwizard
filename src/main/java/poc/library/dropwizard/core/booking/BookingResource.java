@@ -44,7 +44,7 @@ public class BookingResource {
     public Response insertBooking(@NotNull Booking booking) {
         logger.info("insertBooking({})", booking);
         Try<Booking> result = service.borrowBook(booking);
-        return ResourceUtils.render(result, Response.Status.CREATED);
+        return ResourceUtils.renderCreated(result);
     }
 
     @Timed
@@ -52,6 +52,6 @@ public class BookingResource {
     public Response updateBooking(@NotNull Booking booking) {
         logger.info("updateBooking({})", booking);
         Try<Booking> result = service.returnBook(booking);
-        return ResourceUtils.render(result, Response.Status.OK);
+        return ResourceUtils.renderOk(result);
     }
 }

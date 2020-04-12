@@ -4,7 +4,6 @@ import com.codahale.metrics.annotation.Timed;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.core.user.db.UsersRepo;
 import poc.library.dropwizard.domain.User;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
@@ -34,7 +33,7 @@ public class UserResource {
     public Response deleteUser(@PathParam("userId") long userId) {
         //TODO: delete user in others tables (bookings and ratings) ?
         Try<User> result = service.deleteUser(userId);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 
     @Timed
@@ -42,7 +41,7 @@ public class UserResource {
     public Response insertUser(@NotNull User user) {
         logger.info("insertUser({})", user);
         Try<User> result = service.insertUser(user);
-        return ResourceUtils.render(result, Response.Status.CREATED);
+        return ResourceUtils.renderCreated(result);
     }
 
     @Timed
@@ -50,7 +49,7 @@ public class UserResource {
     public Response getUsers() {
         logger.info("getUsers");
         Try<List<User>> result = service.getUsers();
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 
     @Timed
@@ -59,7 +58,7 @@ public class UserResource {
     public Response getUserById(@PathParam("userId") long userId) {
         logger.info("getUserById({})", userId);
         Try<User> result = service.getUserById(userId);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 
     @Timed
@@ -70,6 +69,6 @@ public class UserResource {
                               @PathParam("familyName") @NotNull String familyName) {
         logger.info("getUserByNames({}, {})", firstName, familyName);
         Try<User> result = service.getUserByNames(firstName, familyName);
-        return ResourceUtils.render(result);
+        return ResourceUtils.renderOk(result);
     }
 }
