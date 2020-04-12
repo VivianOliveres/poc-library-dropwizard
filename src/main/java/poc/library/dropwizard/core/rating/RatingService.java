@@ -2,7 +2,7 @@ package poc.library.dropwizard.core.rating;
 
 import poc.library.dropwizard.core.rating.db.RatingsRepo;
 import poc.library.dropwizard.domain.Rating;
-import poc.library.dropwizard.utils.Either;
+import poc.library.dropwizard.utils.Try;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,42 +15,42 @@ public class RatingService {
         this.repo = repo;
     }
 
-    public Either<Rating, String> rate(Rating rating) {
+    public Try<Rating> rate(Rating rating) {
         long ratingId = repo.insertRating(rating.getUserId(), rating.getBookId().toString(), rating.getRatingValue());
         Optional<Rating> insertedRating = repo.getRatingById(ratingId);
-        return Either.left(insertedRating);
+        return Try.left(insertedRating);
     }
 
     public List<Rating> getRatings() {
         return repo.getRatings();
     }
 
-    public Either<Rating, String> getRating(long ratingId) {
+    public Try<Rating> getRating(long ratingId) {
         Optional<Rating> maybeRating = repo.getRatingById(ratingId);
-        return Either.left(maybeRating);
+        return Try.left(maybeRating);
     }
 
-    public Either<Rating, String> updateRating(Rating rating) {
+    public Try<Rating> updateRating(Rating rating) {
         int rowsUpdated = repo.updateRating(rating.getRatingValue(), rating.getRatingId());
         if (rowsUpdated <= 0) {
-            return Either.right("Failed to update rating: " + rating);
+            return Try.right("Failed to update rating: " + rating);
         }
 
         Optional<Rating> maybeRating = repo.getRatingById(rating.getRatingId());
-        return Either.left(maybeRating);
+        return Try.left(maybeRating);
     }
 
-    public Either<Rating, String> deleteRating(long ratingId) {
+    public Try<Rating> deleteRating(long ratingId) {
         Optional<Rating> maybeRating = repo.getRatingById(ratingId);
         if (maybeRating.isEmpty()) {
-            return Either.right("Can not delete an unknown rating[" + ratingId + "]");
+            return Try.right("Can not delete an unknown rating[" + ratingId + "]");
         }
 
         int rowsUpdated = repo.deleteRating(ratingId);
         if (rowsUpdated <= 0) {
-            return Either.right("Failed to delete rating[" + ratingId + "]");
+            return Try.right("Failed to delete rating[" + ratingId + "]");
         }
 
-        return Either.left(maybeRating);
+        return Try.left(maybeRating);
     }
 }

@@ -4,7 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.domain.Booking;
-import poc.library.dropwizard.utils.Either;
+import poc.library.dropwizard.utils.ResourceUtils;
+import poc.library.dropwizard.utils.Try;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -42,23 +43,15 @@ public class BookingResource {
     @POST
     public Response insertBooking(@NotNull Booking booking) {
         logger.info("insertBooking({})", booking);
-        Either<Booking, String> result = service.borrowBook(booking);
-        if (result.isLeft()) {
-            return Response.status(Response.Status.CREATED).entity(result.getLeft()).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getRight()).build();
+        Try<Booking> result = service.borrowBook(booking);
+        return ResourceUtils.render(result, Response.Status.CREATED);
     }
 
     @Timed
     @PUT
     public Response updateBooking(@NotNull Booking booking) {
         logger.info("updateBooking({})", booking);
-        Either<Booking, String> result = service.returnBook(booking);
-        if (result.isLeft()) {
-            return Response.status(Response.Status.OK).entity(result.getLeft()).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getRight()).build();
+        Try<Booking> result = service.returnBook(booking);
+        return ResourceUtils.render(result, Response.Status.OK);
     }
 }

@@ -4,7 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.domain.Rating;
-import poc.library.dropwizard.utils.Either;
+import poc.library.dropwizard.utils.ResourceUtils;
+import poc.library.dropwizard.utils.Try;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -29,12 +30,8 @@ public class RatingResource {
     @POST
     public Response insertRating(@NotNull Rating rating) {
         logger.info("insertRating({})", rating);
-        Either<Rating, String> result = service.rate(rating);
-        if (result.isLeft()) {
-            return Response.status(Response.Status.CREATED).entity(result.getLeft()).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST).entity(result.getRight()).build();
+        Try<Rating> result = service.rate(rating);
+        return ResourceUtils.render(result, Response.Status.CREATED);
     }
 
     @Timed
@@ -47,36 +44,24 @@ public class RatingResource {
     @GET
     @Path("/{ratingId}")
     public Response getRating(@PathParam("ratingId") @NotNull long ratingId) {
-        Either<Rating, String> result = service.getRating(ratingId);
-        if (result.isLeft()) {
-            return Response.status(Response.Status.OK).entity(result.getLeft()).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getRight()).build();
+        Try<Rating> result = service.getRating(ratingId);
+        return ResourceUtils.render(result);
     }
 
     @Timed
     @PUT
     public Response updateRating(@NotNull Rating rating) {
         logger.info("updateRating({})", rating);
-        Either<Rating, String> result = service.updateRating(rating);
-        if (result.isLeft()) {
-            return Response.status(Response.Status.OK).entity(result.getLeft()).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getRight()).build();
+        Try<Rating> result = service.updateRating(rating);
+        return ResourceUtils.render(result);
     }
 
     @Timed
     @DELETE
     @Path("/{ratingId}")
     public Response deleteRating(@PathParam("ratingId") long ratingId) {
-        Either<Rating, String> result = service.deleteRating(ratingId);
-        if (result.isLeft()) {
-            return Response.status(Response.Status.OK).entity(result.getLeft()).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getRight()).build();
+        Try<Rating> result = service.deleteRating(ratingId);
+        return ResourceUtils.render(result);
     }
 
 }
