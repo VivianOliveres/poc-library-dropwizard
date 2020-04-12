@@ -9,6 +9,7 @@ import poc.library.dropwizard.core.booking.BookingResource;
 import poc.library.dropwizard.core.booking.BookingService;
 import poc.library.dropwizard.core.booking.db.BookingsRepo;
 import poc.library.dropwizard.core.catalog.BookResource;
+import poc.library.dropwizard.core.catalog.BookService;
 import poc.library.dropwizard.core.catalog.db.BooksRepo;
 import poc.library.dropwizard.core.rating.RatingResource;
 import poc.library.dropwizard.core.rating.RatingService;
@@ -41,7 +42,8 @@ public class App extends Application<LibraryConfiguration> {
         Jdbi jdbi = factory.build(environment, config.getDataSourceFactory(), "mysql");
 
         BooksRepo booksRepo = jdbi.onDemand(BooksRepo.class);
-        BookResource bookResource = new BookResource(booksRepo);
+        BookService bookService = new BookService(booksRepo);
+        BookResource bookResource = new BookResource(bookService);
         environment.jersey().register(bookResource);
 
         UsersRepo usersRepo = jdbi.onDemand(UsersRepo.class);

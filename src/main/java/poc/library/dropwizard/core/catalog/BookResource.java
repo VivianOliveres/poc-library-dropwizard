@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.core.catalog.db.BooksRepo;
 import poc.library.dropwizard.domain.Book;
+import poc.library.dropwizard.utils.ResourceUtils;
+import poc.library.dropwizard.utils.Try;
 
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.*;
@@ -21,35 +23,31 @@ public class BookResource {
 
     private static final Logger logger = LoggerFactory.getLogger(BookResource.class);
 
-    private final BooksRepo dao;
+    private final BookService service;
 
-    public BookResource(BooksRepo dao) {
-        this.dao = dao;
+    public BookResource(BookService service) {
+        this.service = service;
     }
 
     @Timed
     @POST
     public Response insertBook(@NotNull Book book) {
         logger.info("insertBook({})", book);
-        int result = dao.insert(book.getId().toString(), book.getTitle());
-        if (result > 0) {
-            return Response.status(Response.Status.CREATED).entity(book).build();
-        }
-
-        return Response.status(Response.Status.BAD_REQUEST).build();
+        Try<Book> result = service.insertBook(book);
+        return ResourceUtils.render(result, Response.Status.CREATED);
     }
 
     @Timed
     @GET
     public List<Book> getBooks() {
-        return dao.findBooks();
+        return service.getBooks();
     }
 
     @Timed
     @GET
     @Path("/{id}")
-    @RegisterBeanMapper(Book.class)
-    public Book getBook(@PathParam("id") @NotNull UUID id) {
-        return dao.findBookById(id.toString());
+    public Response getBook(@PathParam("id") @NotNull UUID id) {
+        Try<Book> result = service.getBook(id);
+        return ResourceUtils.render(result);
     }
 }
