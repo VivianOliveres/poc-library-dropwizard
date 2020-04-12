@@ -13,4 +13,3 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "true"
       MYSQL_USER: me
       MYSQL_PASSWORD: 123
-      TZ: "Europe/Paris"

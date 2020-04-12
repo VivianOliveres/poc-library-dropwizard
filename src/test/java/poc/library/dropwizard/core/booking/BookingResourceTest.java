@@ -65,7 +65,7 @@ public class BookingResourceTest extends AbstractIntegrationTest {
         Booking insertResult = insertResponse.readEntity(Booking.class);
         assertThat(insertResult.getUserId()).isEqualTo(bookingToInsert.getUserId());
         assertThat(insertResult.getBookId()).isEqualTo(bookingToInsert.getBookId());
-//        assertThat(insertResult.getBookingDate()).isEqualTo(bookingToInsert.getBookingDate());
+        assertThat(insertResult.getBookingDate()).isEqualTo(bookingToInsert.getBookingDate());
         assertThat(insertResult.getReturnedDate()).isEmpty();
 
         // WHEN: booking is updated

@@ -71,7 +71,7 @@ public class UserResourceTest extends AbstractIntegrationTest {
         User insertEntity = insertResponse.readEntity(User.class);
         assertThat(insertEntity.getFirstName()).isEqualTo(graceHopper.getFirstName());
         assertThat(insertEntity.getFamilyName()).isEqualTo(graceHopper.getFamilyName());
-//        assertThat(insertEntity.getBirthDate()).isEqualTo(graceHopper.getBirthDate());
+        assertThat(insertEntity.getBirthDate()).isEqualTo(graceHopper.getBirthDate());
         assertThat(insertEntity.getMembershipDate()).isEqualTo(graceHopper.getMembershipDate());
 
         // THEN: delete it
@@ -81,7 +81,7 @@ public class UserResourceTest extends AbstractIntegrationTest {
         User deletedUser = deleteResponse.readEntity(User.class);
         assertThat(deletedUser.getFirstName()).isEqualTo(graceHopper.getFirstName());
         assertThat(deletedUser.getFamilyName()).isEqualTo(graceHopper.getFamilyName());
-//        assertThat(deletedUser.getBirthDate()).isEqualTo(graceHopper.getBirthDate());
+        assertThat(deletedUser.getBirthDate()).isEqualTo(graceHopper.getBirthDate());
         assertThat(deletedUser.getMembershipDate()).isEqualTo(graceHopper.getMembershipDate());
 
     }

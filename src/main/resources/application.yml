@@ -6,5 +6,5 @@ database:
   driverClass: com.mysql.cj.jdbc.Driver
   user: me
   password: 123
-  url: jdbc:mysql://localhost:3306/library?serverTimezone=UTC
+  url: jdbc:mysql://localhost:3306/library?serverTimezone=Europe/Paris
 
