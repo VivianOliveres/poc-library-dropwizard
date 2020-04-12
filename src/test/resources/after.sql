@@ -1,6 +1,7 @@
 USE library;
 
 SET FOREIGN_KEY_CHECKS = 0;
+TRUNCATE TABLE ratings;
 TRUNCATE TABLE bookings;
 TRUNCATE TABLE users;
 TRUNCATE TABLE books;

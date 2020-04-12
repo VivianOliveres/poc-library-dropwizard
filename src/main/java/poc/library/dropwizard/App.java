@@ -10,6 +10,9 @@ import poc.library.dropwizard.core.booking.BookingService;
 import poc.library.dropwizard.core.booking.db.BookingsRepo;
 import poc.library.dropwizard.core.catalog.BookResource;
 import poc.library.dropwizard.core.catalog.db.BooksRepo;
+import poc.library.dropwizard.core.rating.RatingResource;
+import poc.library.dropwizard.core.rating.RatingService;
+import poc.library.dropwizard.core.rating.db.RatingsRepo;
 import poc.library.dropwizard.core.user.UserResource;
 import poc.library.dropwizard.core.user.db.UsersRepo;
 
@@ -49,5 +52,10 @@ public class App extends Application<LibraryConfiguration> {
         BookingService bookingService = new BookingService(bookingsRepo);
         BookingResource bookingResource = new BookingResource(bookingService);
         environment.jersey().register(bookingResource);
+
+        RatingsRepo ratingsrepo = jdbi.onDemand(RatingsRepo.class);
+        RatingService ratingService = new RatingService(ratingsrepo);
+        RatingResource ratingResource = new RatingResource(ratingService);
+        environment.jersey().register(ratingResource);
     }
 }

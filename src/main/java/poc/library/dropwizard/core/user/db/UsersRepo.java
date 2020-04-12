@@ -19,8 +19,7 @@ public interface UsersRepo {
     @RegisterRowMapper(UserMapper.class)
     User findUserById(long userId);
 
-    @SqlQuery(
-            "SELECT user_id, first_name, family_name, birth_date, membership_date FROM users WHERE first_name = ? AND family_name = ?")
+    @SqlQuery("SELECT user_id, first_name, family_name, birth_date, membership_date FROM users WHERE first_name = ? AND family_name = ?")
     @RegisterRowMapper(UserMapper.class)
     User findUserByNames(String firstName, String familyName);
 
