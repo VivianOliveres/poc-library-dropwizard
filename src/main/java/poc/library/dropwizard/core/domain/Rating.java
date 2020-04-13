@@ -9,9 +9,14 @@ import java.util.UUID;
 @Value
 public class Rating {
 
-    @JsonProperty long ratingId;
-    @JsonProperty long userId;
-    @JsonProperty UUID bookId;
+    @JsonProperty
+    long ratingId;
+
+    @JsonProperty
+    long userId;
+
+    @JsonProperty
+    UUID bookId;
 
     @With
     @JsonProperty int ratingValue;

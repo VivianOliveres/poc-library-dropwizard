@@ -6,12 +6,12 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
+import poc.library.dropwizard.core.catalog.request.InsertBookRequest;
 import poc.library.dropwizard.core.domain.Book;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.UUID;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -47,13 +47,15 @@ public class BookResourceTest extends AbstractIntegrationTest {
 
     @Test
     public void should_insert_book() {
-        Book effectiveJavaBook = new Book(UUID.randomUUID(), "Effective Java (2nd Edition)");
+        InsertBookRequest insertRequest = new InsertBookRequest("Effective Java (2nd Edition)");
         Response response = target("/core/catalog").request()
-                .post(Entity.entity(effectiveJavaBook, APPLICATION_JSON));
+                .post(Entity.entity(insertRequest, APPLICATION_JSON));
 
         assertThat(response.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
 
         Book result = response.readEntity(Book.class);
-        assertThat(result).isEqualTo(effectiveJavaBook);
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isNotNull();
+        assertThat(result.getTitle()).isEqualTo(insertRequest.getTitle());
     }
 }

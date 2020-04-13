@@ -5,6 +5,7 @@ import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.core.domain.User;
+import poc.library.dropwizard.core.user.request.InsertUserRequest;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
 
@@ -38,9 +39,9 @@ public class UserResource {
 
     @Timed
     @POST
-    public Response insertUser(@NotNull User user) {
-        logger.info("insertUser({})", user);
-        Try<User> result = service.insertUser(user);
+    public Response insertUser(@NotNull InsertUserRequest request) {
+        logger.info("insertUser({})", request);
+        Try<User> result = service.insertUser(request);
         return ResourceUtils.renderCreated(result);
     }
 

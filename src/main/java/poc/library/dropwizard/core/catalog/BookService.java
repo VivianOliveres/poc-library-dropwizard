@@ -1,9 +1,11 @@
 package poc.library.dropwizard.core.catalog;
 
 import poc.library.dropwizard.core.catalog.db.BooksRepo;
+import poc.library.dropwizard.core.catalog.request.InsertBookRequest;
 import poc.library.dropwizard.core.domain.Book;
 import poc.library.dropwizard.utils.Try;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,13 +33,14 @@ public class BookService {
         return repo.findBooks();
     }
 
-    public Try<Book> insertBook(Book book) {
-        int rowsInserted = repo.insert(book.getId().toString(), book.getTitle());
+    public Try<Book> insertBook(@NotNull InsertBookRequest request) {
+        UUID bookId = UUID.randomUUID();
+        int rowsInserted = repo.insert(bookId.toString(), request.getTitle());
         if (rowsInserted <= 0) {
-            return Try.right("Can not insert Book: " + book);
+            return Try.right("Can not insert Book: " + request);
         }
 
-        Optional<Book> maybeBook = repo.findBookById(book.getId().toString());
+        Optional<Book> maybeBook = repo.findBookById(bookId.toString());
         return Try.left(maybeBook);
     }
 

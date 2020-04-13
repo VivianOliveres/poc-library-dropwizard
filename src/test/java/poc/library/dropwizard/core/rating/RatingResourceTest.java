@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
 import poc.library.dropwizard.core.domain.Rating;
+import poc.library.dropwizard.core.rating.request.InsertRatingRequest;
+import poc.library.dropwizard.core.rating.request.UpdateRatingRequest;
 
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -50,9 +52,9 @@ public class RatingResourceTest extends AbstractIntegrationTest {
     @Test
     public void should_insert_then_update_then_delete() throws JsonProcessingException {
         // Insert
-        Rating ratingToInsert = new Rating(123, MARGARET.getUserId(), DESIGN_PATERNS.getId(), 5);
+        InsertRatingRequest insertRequest = new InsertRatingRequest(MARGARET.getUserId(), DESIGN_PATERNS.getId(), 5);
         Response insertResponse = target("/core/rating").request()
-                .post(entity(ratingToInsert, APPLICATION_JSON));
+                .post(entity(insertRequest, APPLICATION_JSON));
 
         assertThat(insertResponse.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
 
@@ -64,9 +66,9 @@ public class RatingResourceTest extends AbstractIntegrationTest {
         assertThat(insertedRating.getRatingValue()).isEqualTo(5);
 
         // UPDATE
-        Rating ratingToUpdate = insertedRating.withRatingValue(4);
+        UpdateRatingRequest updateRequest = new UpdateRatingRequest(insertedRating.getRatingId(), 4);
         Response updateResponse = target("/core/rating").request()
-                .put(entity(ratingToUpdate, APPLICATION_JSON));
+                .put(entity(updateRequest, APPLICATION_JSON));
 
         assertThat(updateResponse.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
 

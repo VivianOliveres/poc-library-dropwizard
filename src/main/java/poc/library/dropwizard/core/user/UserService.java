@@ -2,6 +2,7 @@ package poc.library.dropwizard.core.user;
 
 import poc.library.dropwizard.core.user.db.UsersRepo;
 import poc.library.dropwizard.core.domain.User;
+import poc.library.dropwizard.core.user.request.InsertUserRequest;
 import poc.library.dropwizard.utils.Try;
 
 import java.util.List;
@@ -29,10 +30,10 @@ public class UserService {
         return Try.left(maybeUser);
     }
 
-    public Try<User> insertUser(User user) {
-        long userId = repo.insert(user.getFirstName(), user.getFamilyName(), user.getBirthDate(), user.getMembershipDate());
+    public Try<User> insertUser(InsertUserRequest request) {
+        long userId = repo.insert(request.getFirstName(), request.getFamilyName(), request.getBirthDate(), request.getMembershipDate());
         if (userId <= 0) {
-            return Try.right("Can not insert User: " + user);
+            return Try.right("Can not insert User: " + request);
         }
 
         Optional<User> maybeUser = repo.findUserById(userId);

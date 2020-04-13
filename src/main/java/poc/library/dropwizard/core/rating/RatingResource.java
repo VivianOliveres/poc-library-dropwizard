@@ -4,6 +4,8 @@ import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.core.domain.Rating;
+import poc.library.dropwizard.core.rating.request.InsertRatingRequest;
+import poc.library.dropwizard.core.rating.request.UpdateRatingRequest;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
 
@@ -28,9 +30,9 @@ public class RatingResource {
 
     @Timed
     @POST
-    public Response insertRating(@NotNull Rating rating) {
-        logger.info("insertRating({})", rating);
-        Try<Rating> result = service.rate(rating);
+    public Response insertRating(@NotNull InsertRatingRequest request) {
+        logger.info("insertRating({})", request);
+        Try<Rating> result = service.rate(request);
         return ResourceUtils.renderCreated(result);
     }
 
@@ -50,9 +52,9 @@ public class RatingResource {
 
     @Timed
     @PUT
-    public Response updateRating(@NotNull Rating rating) {
-        logger.info("updateRating({})", rating);
-        Try<Rating> result = service.updateRating(rating);
+    public Response updateRating(@NotNull UpdateRatingRequest request) {
+        logger.info("updateRating({})", request);
+        Try<Rating> result = service.updateRating(request);
         return ResourceUtils.renderOk(result);
     }
 

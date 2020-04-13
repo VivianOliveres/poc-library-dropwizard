@@ -3,9 +3,12 @@ package poc.library.dropwizard.core.booking;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import poc.library.dropwizard.core.booking.db.BookingsRepo;
+import poc.library.dropwizard.core.booking.request.InsertBookingRequest;
+import poc.library.dropwizard.core.booking.request.UpdateBookingRequest;
 import poc.library.dropwizard.core.domain.Booking;
 import poc.library.dropwizard.utils.Try;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,7 +32,7 @@ public class BookingService {
         return repo.findActiveBookingByUserId(userId);
     }
 
-    public Try<Booking> borrowBook(Booking booking) {
+    public Try<Booking> borrowBook(@NotNull InsertBookingRequest booking) {
         int bookingsCount = repo.countActiveBookingsByUserId(booking.getUserId());
         if (bookingsCount >= MAX_BOOKING_PER_USER) {
             return Try.right("User[" + booking.getUserId() + "] has booked too many books [" + bookingsCount + "]");
@@ -44,12 +47,17 @@ public class BookingService {
         return Try.left(insertedBooking);
     }
 
-    public Try<Booking> returnBook(Booking booking) {
-        int result = repo.updateBooking(booking.getReturnedDate().get(), booking.getBookingId());
+    public Try<Booking> returnBook(@NotNull UpdateBookingRequest request) {
+        int result = repo.updateBooking(request.getReturnedDate(), request.getBookingId());
         if (result <= 0) {
-            return Try.right("Failed to update booking: " + booking);
+            return Try.right("Failed to update booking: " + request);
         }
 
-        return Try.left(booking);
+        Optional<Booking> maybeBooking = repo.getBookingById(request.getBookingId());
+        if (maybeBooking.isEmpty()) {
+            Try.right("Insert of " + request + " has failed");
+        }
+
+        return Try.left(maybeBooking);
     }
 }

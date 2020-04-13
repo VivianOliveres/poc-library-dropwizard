@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
 import poc.library.dropwizard.core.domain.User;
+import poc.library.dropwizard.core.user.request.InsertUserRequest;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
@@ -15,6 +16,7 @@ import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static org.assertj.core.api.Assertions.assertThat;
+import static poc.library.dropwizard.core.user.UserMotherObject.ALL_USERS;
 
 @ExtendWith(DropwizardExtensionsSupport.class)
 public class UserResourceTest extends AbstractIntegrationTest {
@@ -28,13 +30,13 @@ public class UserResourceTest extends AbstractIntegrationTest {
         String resultAsJson = response.readEntity(String.class);
         List<User> result = MAPPER.readValue(resultAsJson, new TypeReference<>(){});
 
-        assertThat(result).containsAll(UserMotherObject.ALL_USERS);
-        assertThat(result).hasSize(UserMotherObject.ALL_USERS.size());
+        assertThat(result).containsAll(ALL_USERS);
+        assertThat(result).hasSize(ALL_USERS.size());
     }
 
     @Test
     public void should_retrieve_one_user_by_id() throws JsonProcessingException {
-        for (User user : UserMotherObject.ALL_USERS) {
+        for (User user : ALL_USERS) {
             String path = "/core/user/" + user.getUserId();
             Response response = target(path).request().get();
 
@@ -47,7 +49,7 @@ public class UserResourceTest extends AbstractIntegrationTest {
 
     @Test
     public void should_retrieve_one_user_by_name() throws JsonProcessingException {
-        for (User user : UserMotherObject.ALL_USERS) {
+        for (User user : ALL_USERS) {
             String path = "/core/user/" + user.getFirstName() + "/" + user.getFamilyName();
             Response response = target(path).request().get();
 
@@ -61,28 +63,30 @@ public class UserResourceTest extends AbstractIntegrationTest {
     @Test
     public void should_insert_one_user_then_delete_it() throws JsonProcessingException {
         // Insert user
-        User graceHopper = new User(123L, "Grace", "Hopper", LocalDate.of(1906, 12, 9), LocalDate.of(1912, 5, 12));
+        InsertUserRequest insertRequest = new InsertUserRequest("Grace", "Hopper", LocalDate.of(1906, 12, 9), LocalDate.of(1912, 5, 12));
         Response insertResponse = target("/core/user").request()
-                .post(Entity.entity(graceHopper, APPLICATION_JSON));
+                .post(Entity.entity(insertRequest, APPLICATION_JSON));
 
         assertThat(insertResponse.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
 
         // Users are the same except for UserId
         User insertEntity = insertResponse.readEntity(User.class);
-        assertThat(insertEntity.getFirstName()).isEqualTo(graceHopper.getFirstName());
-        assertThat(insertEntity.getFamilyName()).isEqualTo(graceHopper.getFamilyName());
-        assertThat(insertEntity.getBirthDate()).isEqualTo(graceHopper.getBirthDate());
-        assertThat(insertEntity.getMembershipDate()).isEqualTo(graceHopper.getMembershipDate());
+        assertThat(insertEntity.getUserId()).isEqualTo(ALL_USERS.size() + 1);
+        assertThat(insertEntity.getFirstName()).isEqualTo(insertRequest.getFirstName());
+        assertThat(insertEntity.getFamilyName()).isEqualTo(insertRequest.getFamilyName());
+        assertThat(insertEntity.getBirthDate()).isEqualTo(insertRequest.getBirthDate());
+        assertThat(insertEntity.getMembershipDate()).isEqualTo(insertRequest.getMembershipDate());
 
         // THEN: delete it
         Response deleteResponse = target("/core/user/" + insertEntity.getUserId()).request().delete();
         assertThat(deleteResponse.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
 
         User deletedUser = deleteResponse.readEntity(User.class);
-        assertThat(deletedUser.getFirstName()).isEqualTo(graceHopper.getFirstName());
-        assertThat(deletedUser.getFamilyName()).isEqualTo(graceHopper.getFamilyName());
-        assertThat(deletedUser.getBirthDate()).isEqualTo(graceHopper.getBirthDate());
-        assertThat(deletedUser.getMembershipDate()).isEqualTo(graceHopper.getMembershipDate());
+        assertThat(deletedUser.getUserId()).isEqualTo(insertEntity.getUserId());
+        assertThat(deletedUser.getFirstName()).isEqualTo(insertRequest.getFirstName());
+        assertThat(deletedUser.getFamilyName()).isEqualTo(insertRequest.getFamilyName());
+        assertThat(deletedUser.getBirthDate()).isEqualTo(insertRequest.getBirthDate());
+        assertThat(deletedUser.getMembershipDate()).isEqualTo(insertRequest.getMembershipDate());
 
     }
 }

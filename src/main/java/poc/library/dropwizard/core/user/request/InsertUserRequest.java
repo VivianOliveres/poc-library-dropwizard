@@ -1,18 +1,13 @@
-package poc.library.dropwizard.core.domain;
+package poc.library.dropwizard.core.user.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Value;
-import lombok.With;
 
 import java.time.LocalDate;
 
 @Value
-public class User {
-
-    @With
-    @JsonProperty
-    long userId;
+public class InsertUserRequest {
 
     @JsonProperty
     String firstName;
@@ -27,12 +22,10 @@ public class User {
     LocalDate membershipDate;
 
     @JsonCreator
-    public User(@JsonProperty("userId") long userId,
-                @JsonProperty("firstName") String firstName,
-                @JsonProperty("familyName") String familyName,
-                @JsonProperty("birthDate") LocalDate birthDate,
-                @JsonProperty("membershipDate") LocalDate membershipDate) {
-        this.userId = userId;
+    public InsertUserRequest(@JsonProperty("firstName") String firstName,
+                             @JsonProperty("familyName") String familyName,
+                             @JsonProperty("birthDate") LocalDate birthDate,
+                             @JsonProperty("membershipDate") LocalDate membershipDate) {
         this.firstName = firstName;
         this.familyName = familyName;
         this.birthDate = birthDate;

@@ -6,6 +6,8 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
+import poc.library.dropwizard.core.booking.request.InsertBookingRequest;
+import poc.library.dropwizard.core.booking.request.UpdateBookingRequest;
 import poc.library.dropwizard.core.domain.Booking;
 import poc.library.dropwizard.core.user.UserMotherObject;
 
@@ -55,31 +57,31 @@ public class BookingResourceTest extends AbstractIntegrationTest {
     @Test
     public void should_insert_booking_then_update_it() {
         // WHEN: insert a booking
-        Booking bookingToInsert = Booking.of(123L, MARGARET.getUserId(), CONCURRENCY.getId(), LocalDate.now());
+        InsertBookingRequest insertRequest = new InsertBookingRequest(MARGARET.getUserId(), CONCURRENCY.getId(), LocalDate.now());
         Response insertResponse = target("/core/booking").request()
-                .post(entity(bookingToInsert, APPLICATION_JSON));
+                .post(entity(insertRequest, APPLICATION_JSON));
 
         assertThat(insertResponse.getStatus()).isEqualTo(Response.Status.CREATED.getStatusCode());
 
         // THEN: booking is inserted (bookingId could be different)
         Booking insertResult = insertResponse.readEntity(Booking.class);
-        assertThat(insertResult.getUserId()).isEqualTo(bookingToInsert.getUserId());
-        assertThat(insertResult.getBookId()).isEqualTo(bookingToInsert.getBookId());
-        assertThat(insertResult.getBookingDate()).isEqualTo(bookingToInsert.getBookingDate());
+        assertThat(insertResult.getUserId()).isEqualTo(MARGARET.getUserId());
+        assertThat(insertResult.getBookId()).isEqualTo(CONCURRENCY.getId());
+        assertThat(insertResult.getBookingDate()).isEqualTo(insertRequest.getBookingDate());
         assertThat(insertResult.getReturnedDate()).isEmpty();
 
         // WHEN: booking is updated
-        Booking bookingToUpdate = insertResult.withReturnedDate(Optional.of(LocalDate.now().plusDays(1)));
+        UpdateBookingRequest updateRequest = new UpdateBookingRequest(insertResult.getBookingId(), LocalDate.now().plusDays(1));
         Response updateResponse = target("/core/booking").request()
-                .put(entity(bookingToUpdate, APPLICATION_JSON));
+                .put(entity(updateRequest, APPLICATION_JSON));
         assertThat(updateResponse.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
 
         // THEN: booking is updated
         Booking updateResult = updateResponse.readEntity(Booking.class);
-        assertThat(updateResult.getUserId()).isEqualTo(bookingToUpdate.getUserId());
-        assertThat(updateResult.getBookId()).isEqualTo(bookingToUpdate.getBookId());
-        assertThat(updateResult.getBookingDate()).isEqualTo(bookingToUpdate.getBookingDate());
-        assertThat(updateResult.getReturnedDate()).isEqualTo(bookingToUpdate.getReturnedDate());
+        assertThat(updateResult.getUserId()).isEqualTo(MARGARET.getUserId());
+        assertThat(updateResult.getBookId()).isEqualTo(CONCURRENCY.getId());
+        assertThat(updateResult.getBookingDate()).isEqualTo(insertRequest.getBookingDate());
+        assertThat(updateResult.getReturnedDate()).isEqualTo(Optional.of(updateRequest.getReturnedDate()));
     }
 
 }

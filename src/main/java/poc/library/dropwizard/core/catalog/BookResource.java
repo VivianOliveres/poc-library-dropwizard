@@ -3,6 +3,7 @@ package poc.library.dropwizard.core.catalog;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import poc.library.dropwizard.core.catalog.request.InsertBookRequest;
 import poc.library.dropwizard.core.domain.Book;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
@@ -29,9 +30,9 @@ public class BookResource {
 
     @Timed
     @POST
-    public Response insertBook(@NotNull Book book) {
-        logger.info("insertBook({})", book);
-        Try<Book> result = service.insertBook(book);
+    public Response insertBook(@NotNull InsertBookRequest request) {
+        logger.info("insertBook({})", request);
+        Try<Book> result = service.insertBook(request);
         return ResourceUtils.renderCreated(result);
     }
 

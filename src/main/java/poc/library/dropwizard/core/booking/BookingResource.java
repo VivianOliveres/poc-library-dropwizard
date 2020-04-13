@@ -3,6 +3,8 @@ package poc.library.dropwizard.core.booking;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import poc.library.dropwizard.core.booking.request.InsertBookingRequest;
+import poc.library.dropwizard.core.booking.request.UpdateBookingRequest;
 import poc.library.dropwizard.core.domain.Booking;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
@@ -41,17 +43,17 @@ public class BookingResource {
 
     @Timed
     @POST
-    public Response insertBooking(@NotNull Booking booking) {
-        logger.info("insertBooking({})", booking);
-        Try<Booking> result = service.borrowBook(booking);
+    public Response insertBooking(@NotNull InsertBookingRequest request) {
+        logger.info("insertBooking({})", request);
+        Try<Booking> result = service.borrowBook(request);
         return ResourceUtils.renderCreated(result);
     }
 
     @Timed
     @PUT
-    public Response updateBooking(@NotNull Booking booking) {
-        logger.info("updateBooking({})", booking);
-        Try<Booking> result = service.returnBook(booking);
+    public Response updateBooking(@NotNull UpdateBookingRequest request) {
+        logger.info("updateBooking({})", request);
+        Try<Booking> result = service.returnBook(request);
         return ResourceUtils.renderOk(result);
     }
 }
