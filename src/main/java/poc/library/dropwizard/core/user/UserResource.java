@@ -4,7 +4,7 @@ import com.codahale.metrics.annotation.Timed;
 import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.core.domain.User;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
 

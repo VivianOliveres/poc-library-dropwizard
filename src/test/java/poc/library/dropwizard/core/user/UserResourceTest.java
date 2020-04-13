@@ -6,7 +6,7 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
-import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.core.domain.User;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;

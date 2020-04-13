@@ -4,7 +4,7 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.core.domain.User;
 
 import java.time.LocalDate;
 import java.util.List;

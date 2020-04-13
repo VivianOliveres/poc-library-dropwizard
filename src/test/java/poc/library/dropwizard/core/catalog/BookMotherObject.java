@@ -1,7 +1,7 @@
 package poc.library.dropwizard.core.catalog;
 
 import lombok.experimental.UtilityClass;
-import poc.library.dropwizard.domain.Book;
+import poc.library.dropwizard.core.domain.Book;
 
 import java.util.List;
 import java.util.UUID;

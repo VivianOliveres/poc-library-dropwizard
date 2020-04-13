@@ -4,7 +4,7 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import poc.library.dropwizard.domain.Rating;
+import poc.library.dropwizard.core.domain.Rating;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,4 +28,8 @@ public interface RatingsRepo {
 
     @SqlUpdate("DELETE FROM ratings WHERE rating_id = ?")
     int deleteRating(long ratingId);
+
+    @SqlQuery("SELECT rating_id, user_id, book_id, rating_value FROM ratings WHERE user_id = ?")
+    @RegisterRowMapper(RatingMapper.class)
+    List<Rating> getRatingsByUserId(long userId);
 }

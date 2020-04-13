@@ -2,7 +2,7 @@ package poc.library.dropwizard.core.rating.db;
 
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
-import poc.library.dropwizard.domain.Rating;
+import poc.library.dropwizard.core.domain.Rating;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

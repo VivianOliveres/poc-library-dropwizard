@@ -1,12 +1,14 @@
 package poc.library.dropwizard.core.catalog;
 
 import poc.library.dropwizard.core.catalog.db.BooksRepo;
-import poc.library.dropwizard.domain.Book;
+import poc.library.dropwizard.core.domain.Book;
 import poc.library.dropwizard.utils.Try;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class BookService {
 
@@ -37,5 +39,10 @@ public class BookService {
 
         Optional<Book> maybeBook = repo.findBookById(book.getId().toString());
         return Try.left(maybeBook);
+    }
+
+    public List<Book> getBooks(Set<UUID> books) {
+        List<String> bookIds = books.stream().map(UUID::toString).collect(Collectors.toList());
+        return repo.findBookByIds(bookIds);
     }
 }

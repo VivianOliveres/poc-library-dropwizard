@@ -1,7 +1,7 @@
 package poc.library.dropwizard.core.booking;
 
 import lombok.experimental.UtilityClass;
-import poc.library.dropwizard.domain.Booking;
+import poc.library.dropwizard.core.domain.Booking;
 
 import java.time.LocalDate;
 import java.util.List;

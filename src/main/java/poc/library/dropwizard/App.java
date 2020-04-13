@@ -17,6 +17,8 @@ import poc.library.dropwizard.core.rating.db.RatingsRepo;
 import poc.library.dropwizard.core.user.UserResource;
 import poc.library.dropwizard.core.user.UserService;
 import poc.library.dropwizard.core.user.db.UsersRepo;
+import poc.library.dropwizard.presentation.PresentationUserResource;
+import poc.library.dropwizard.presentation.PresentationUserService;
 
 public class App extends Application<LibraryConfiguration> {
 
@@ -61,5 +63,9 @@ public class App extends Application<LibraryConfiguration> {
         RatingService ratingService = new RatingService(ratingsrepo);
         RatingResource ratingResource = new RatingResource(ratingService);
         environment.jersey().register(ratingResource);
+
+        PresentationUserService presentationService = new PresentationUserService(userService, bookingService, ratingService, bookService);
+        PresentationUserResource presentationResource = new PresentationUserResource(presentationService);
+        environment.jersey().register(presentationResource);
     }
 }

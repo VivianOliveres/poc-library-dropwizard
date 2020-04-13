@@ -1,9 +1,7 @@
 package poc.library.dropwizard.core.rating;
 
 import lombok.experimental.UtilityClass;
-import poc.library.dropwizard.core.catalog.BookMotherObject;
-import poc.library.dropwizard.core.user.UserMotherObject;
-import poc.library.dropwizard.domain.Rating;
+import poc.library.dropwizard.core.domain.Rating;
 
 import java.util.List;
 

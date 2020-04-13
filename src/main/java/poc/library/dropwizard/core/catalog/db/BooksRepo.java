@@ -2,12 +2,15 @@ package poc.library.dropwizard.core.catalog.db;
 
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
+import org.jdbi.v3.sqlobject.customizer.BindList;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
-import poc.library.dropwizard.domain.Book;
+import poc.library.dropwizard.core.domain.Book;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
 
 public interface BooksRepo {
 
@@ -22,4 +25,7 @@ public interface BooksRepo {
     @RegisterRowMapper(BookMapper.class)
     List<Book> findBooks();
 
+    @SqlQuery("SELECT book_id, title FROM books WHERE book_id IN (<books>)")
+    @RegisterRowMapper(BookMapper.class)
+    List<Book> findBookByIds(@BindList("books") List<String> books);
 }

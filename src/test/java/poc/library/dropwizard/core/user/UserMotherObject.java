@@ -1,7 +1,7 @@
 package poc.library.dropwizard.core.user;
 
 import lombok.experimental.UtilityClass;
-import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.core.domain.User;
 
 import java.time.LocalDate;
 import java.util.List;

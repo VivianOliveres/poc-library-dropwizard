@@ -2,7 +2,7 @@ package poc.library.dropwizard.core.catalog.db;
 
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
-import poc.library.dropwizard.domain.Book;
+import poc.library.dropwizard.core.domain.Book;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

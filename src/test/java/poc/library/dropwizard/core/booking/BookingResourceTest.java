@@ -6,8 +6,8 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
+import poc.library.dropwizard.core.domain.Booking;
 import poc.library.dropwizard.core.user.UserMotherObject;
-import poc.library.dropwizard.domain.Booking;
 
 import javax.ws.rs.core.Response;
 import java.time.LocalDate;

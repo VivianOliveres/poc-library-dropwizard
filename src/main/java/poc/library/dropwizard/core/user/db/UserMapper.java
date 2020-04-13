@@ -2,7 +2,7 @@ package poc.library.dropwizard.core.user.db;
 
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
-import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.core.domain.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

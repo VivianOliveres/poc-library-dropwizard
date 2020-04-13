@@ -1,7 +1,7 @@
 package poc.library.dropwizard.core.rating;
 
 import poc.library.dropwizard.core.rating.db.RatingsRepo;
-import poc.library.dropwizard.domain.Rating;
+import poc.library.dropwizard.core.domain.Rating;
 import poc.library.dropwizard.utils.Try;
 
 import java.util.List;
@@ -52,5 +52,9 @@ public class RatingService {
         }
 
         return Try.left(maybeRating);
+    }
+
+    public List<Rating> getRatings(long userId) {
+        return repo.getRatingsByUserId(userId);
     }
 }

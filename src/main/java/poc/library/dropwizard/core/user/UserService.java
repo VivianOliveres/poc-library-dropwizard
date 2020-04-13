@@ -1,7 +1,7 @@
 package poc.library.dropwizard.core.user;
 
 import poc.library.dropwizard.core.user.db.UsersRepo;
-import poc.library.dropwizard.domain.User;
+import poc.library.dropwizard.core.domain.User;
 import poc.library.dropwizard.utils.Try;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package poc.library.dropwizard.domain;
+package poc.library.dropwizard.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;

@@ -1,4 +1,4 @@
-package poc.library.dropwizard.domain;
+package poc.library.dropwizard.core.domain;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -12,10 +12,17 @@ import java.util.UUID;
 @Value
 public class Booking {
 
-    @JsonProperty long bookingId;
-    @JsonProperty long userId;
-    @JsonProperty UUID bookId;
-    @JsonProperty LocalDate bookingDate;
+    @JsonProperty
+    long bookingId;
+
+    @JsonProperty
+    long userId;
+
+    @JsonProperty
+    UUID bookId;
+
+    @JsonProperty
+    LocalDate bookingDate;
 
     @With
     @JsonProperty Optional<LocalDate> returnedDate;

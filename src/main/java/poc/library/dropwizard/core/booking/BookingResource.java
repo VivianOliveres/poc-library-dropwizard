@@ -3,7 +3,7 @@ package poc.library.dropwizard.core.booking;
 import com.codahale.metrics.annotation.Timed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import poc.library.dropwizard.domain.Booking;
+import poc.library.dropwizard.core.domain.Booking;
 import poc.library.dropwizard.utils.ResourceUtils;
 import poc.library.dropwizard.utils.Try;
 

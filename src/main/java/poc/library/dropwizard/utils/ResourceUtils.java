@@ -20,6 +20,6 @@ public class ResourceUtils {
             return Response.status(okStatus).entity(result.getLeft()).build();
         }
 
-        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getRight()).build();
+        return Response.status(Response.Status.BAD_REQUEST.getStatusCode(), result.getMessage()).build();
     }
 }

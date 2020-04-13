@@ -6,7 +6,7 @@ import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import poc.library.dropwizard.AbstractIntegrationTest;
-import poc.library.dropwizard.domain.Rating;
+import poc.library.dropwizard.core.domain.Rating;
 
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -36,7 +36,7 @@ public class RatingResourceTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void should_retrieve_ratings_by_id() throws JsonProcessingException {
+    public void should_retrieve_ratings_by_id() {
         String path = "/core/rating/" + RATING_JAMES_DATA.getRatingId();
         Response response = target(path).request().get();
 
